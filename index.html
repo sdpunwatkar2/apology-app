@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Friendship Apology</title>
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        overflow: hidden;
+        color: #fff;
+      }
+
+      .glass-card {
+        position: relative;
+        max-width: 600px;
+        padding: 2rem 3rem;
+        border-radius: 20px;
+        -webkit-backdrop-filter: blur(12px) saturate(180%);
+        backdrop-filter: blur(12px) saturate(180%);
+        background: rgba(17, 25, 40, 0.55);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        box-shadow: 0 0 25px rgba(0, 255, 255, 0.5),
+          0 0 50px rgba(255, 0, 255, 0.5);
+        text-align: center;
+        z-index: 2;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+        color: #00ffe5;
+        text-shadow: 0 0 10px #00ffe5, 0 0 20px #00ffe5;
+      }
+
+      p {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+        color: #d0f0ff;
+      }
+
+      button {
+        background: rgba(0, 255, 170, 0.2);
+        border: 1px solid rgba(0, 255, 170, 0.8);
+        padding: 0.8rem 2rem;
+        border-radius: 50px;
+        font-size: 1rem;
+        color: #00ffea;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 0 10px #00ffe5;
+      }
+
+      button:hover {
+        background: rgba(0, 255, 170, 0.4);
+        box-shadow: 0 0 20px #00ffe5, 0 0 40px #00ffe5;
+      }
+
+      /* Floating particles */
+      .particle {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: rgba(0, 255, 255, 0.8);
+        border-radius: 50%;
+        animation: float 10s linear infinite;
+      }
+
+      @keyframes float {
+        from {
+          transform: translateY(100vh) scale(0.5);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(-10vh) scale(1);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="glass-card">
+      <h1>Hey Friend 👋</h1>
+      <p>
+        I know things don’t always go smoothly, and sometimes words come out
+        wrong.<br /><br />
+        But I value this friendship more than a temporary misunderstanding.<br /><br />
+        Let’s move forward with clarity, respect, and a smile. 🌟
+      </p>
+      <button onclick="alert('Glad we are cool again 🙂')">Stay Friends</button>
+    </div>
+
+    <script>
+      // Create floating neon particles
+      for (let i = 0; i < 30; i++) {
+        const particle = document.createElement("div");
+        particle.className = "particle";
+        particle.style.left = Math.random() * 100 + "vw";
+        particle.style.animationDuration = 5 + Math.random() * 5 + "s";
+        particle.style.opacity = Math.random();
+        document.body.appendChild(particle);
+      }
+    </script>
+  </body>
+</html>
