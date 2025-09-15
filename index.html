@@ -5,119 +5,138 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Friendship Apology</title>
     <style>
-      body {
+      /* Reset */
+      * {
         margin: 0;
-        min-height: 100vh;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
-        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: radial-gradient(circle at top, #0f2027, #1a2a33, #000);
+        font-family: "Poppins", sans-serif;
         overflow: hidden;
         color: #fff;
-        padding: 1rem;
       }
 
-      .glass-card {
-        width: 100%;
-        max-width: 400px; /* narrower for mobile */
-        padding: 1.5rem;
+      .card {
+        width: 90%;
+        max-width: 400px;
+        padding: 2rem;
         border-radius: 16px;
-        -webkit-backdrop-filter: blur(12px) saturate(180%);
-        backdrop-filter: blur(12px) saturate(180%);
-        background: rgba(17, 25, 40, 0.65);
+        background: rgba(17, 25, 40, 0.7);
+        backdrop-filter: blur(15px) saturate(180%);
         border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 0 18px rgba(0, 255, 255, 0.4),
-          0 0 35px rgba(255, 0, 255, 0.3);
+        box-shadow: 0 0 25px rgba(0, 255, 255, 0.6),
+          0 0 40px rgba(255, 0, 255, 0.4);
         text-align: center;
+        position: relative;
         z-index: 2;
+        animation: fadeIn 1.2s ease;
       }
 
-      h1 {
-        font-size: 1.6rem;
+      .card h1 {
+        font-size: 1.8rem;
         margin-bottom: 1rem;
         color: #00ffe5;
-        text-shadow: 0 0 6px #00ffe5, 0 0 15px #00ffe5;
+        text-shadow: 0 0 10px #00ffe5, 0 0 20px #00ffe5;
       }
 
-      p {
+      .card p {
         font-size: 1rem;
-        margin-bottom: 1.2rem;
-        line-height: 1.5;
-        color: #d0f0ff;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        color: #cdefff;
       }
 
-      button {
-        background: rgba(0, 255, 170, 0.25);
+      .card button {
+        background: rgba(0, 255, 170, 0.2);
         border: 1px solid rgba(0, 255, 170, 0.8);
-        padding: 0.7rem 1.5rem;
-        border-radius: 50px;
-        font-size: 0.95rem;
+        padding: 0.7rem 1.8rem;
+        border-radius: 40px;
+        font-size: 1rem;
         color: #00ffea;
         cursor: pointer;
         transition: 0.3s;
-        box-shadow: 0 0 8px #00ffe5;
+        box-shadow: 0 0 10px #00ffe5;
       }
 
-      button:hover {
-        background: rgba(0, 255, 170, 0.45);
-        box-shadow: 0 0 15px #00ffe5, 0 0 25px #00ffe5;
+      .card button:hover {
+        background: rgba(0, 255, 170, 0.4);
+        box-shadow: 0 0 20px #00ffe5, 0 0 40px #00ffe5;
       }
 
-      /* Floating particles */
+      /* Floating particles for background */
       .particle {
         position: absolute;
-        width: 6px;
-        height: 6px;
-        background: rgba(0, 255, 255, 0.8);
+        width: 8px;
+        height: 8px;
+        background: rgba(0, 255, 255, 0.9);
         border-radius: 50%;
         animation: float 12s linear infinite;
+        z-index: 1;
       }
 
       @keyframes float {
         from {
-          transform: translateY(100vh) scale(0.5);
+          transform: translateY(100vh) scale(0.4);
           opacity: 0;
         }
         to {
-          transform: translateY(-10vh) scale(1);
+          transform: translateY(-10vh) scale(1.1);
           opacity: 1;
         }
       }
 
-      /* Mobile adjustments */
-      @media (max-width: 480px) {
-        .glass-card {
-          padding: 1.2rem;
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Mobile tweaks */
+      @media (max-width: 500px) {
+        .card {
+          padding: 1.5rem;
           border-radius: 14px;
         }
-        h1 {
-          font-size: 1.4rem;
+        .card h1 {
+          font-size: 1.5rem;
         }
-        p {
+        .card p {
+          font-size: 0.95rem;
+        }
+        .card button {
           font-size: 0.9rem;
-        }
-        button {
-          font-size: 0.85rem;
-          padding: 0.6rem 1.2rem;
+          padding: 0.6rem 1.5rem;
         }
       }
     </style>
   </head>
   <body>
-    <div class="glass-card">
+    <div class="card">
       <h1>Hey Friend 👋</h1>
       <p>
-        Misunderstandings may come and go,<br />
-        but real friendship stays strong.<br /><br />
-        Let’s keep moving forward with respect and smiles. 🌟
+        Misunderstandings are part of being human, but they shouldn’t define
+        what we share.<br /><br />
+        I’d rather keep the bond we’ve built than let small moments drift us
+        apart. 🌟
       </p>
       <button onclick="alert('Glad we are cool again 🙂')">Stay Friends</button>
     </div>
 
     <script>
-      // Create floating neon particles
-      for (let i = 0; i < 20; i++) {
+      // Generate floating particles
+      for (let i = 0; i < 25; i++) {
         const particle = document.createElement("div");
         particle.className = "particle";
         particle.style.left = Math.random() * 100 + "vw";
