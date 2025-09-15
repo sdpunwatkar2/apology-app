@@ -7,7 +7,7 @@
     <style>
       body {
         margin: 0;
-        height: 100vh;
+        min-height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -15,62 +15,63 @@
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         overflow: hidden;
         color: #fff;
+        padding: 1rem;
       }
 
       .glass-card {
-        position: relative;
-        max-width: 600px;
-        padding: 2rem 3rem;
-        border-radius: 20px;
+        width: 100%;
+        max-width: 400px; /* narrower for mobile */
+        padding: 1.5rem;
+        border-radius: 16px;
         -webkit-backdrop-filter: blur(12px) saturate(180%);
         backdrop-filter: blur(12px) saturate(180%);
-        background: rgba(17, 25, 40, 0.55);
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        box-shadow: 0 0 25px rgba(0, 255, 255, 0.5),
-          0 0 50px rgba(255, 0, 255, 0.5);
+        background: rgba(17, 25, 40, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 18px rgba(0, 255, 255, 0.4),
+          0 0 35px rgba(255, 0, 255, 0.3);
         text-align: center;
         z-index: 2;
       }
 
       h1 {
-        font-size: 2.2rem;
+        font-size: 1.6rem;
         margin-bottom: 1rem;
         color: #00ffe5;
-        text-shadow: 0 0 10px #00ffe5, 0 0 20px #00ffe5;
+        text-shadow: 0 0 6px #00ffe5, 0 0 15px #00ffe5;
       }
 
       p {
-        font-size: 1.1rem;
-        margin-bottom: 1.5rem;
-        line-height: 1.6;
+        font-size: 1rem;
+        margin-bottom: 1.2rem;
+        line-height: 1.5;
         color: #d0f0ff;
       }
 
       button {
-        background: rgba(0, 255, 170, 0.2);
+        background: rgba(0, 255, 170, 0.25);
         border: 1px solid rgba(0, 255, 170, 0.8);
-        padding: 0.8rem 2rem;
+        padding: 0.7rem 1.5rem;
         border-radius: 50px;
-        font-size: 1rem;
+        font-size: 0.95rem;
         color: #00ffea;
         cursor: pointer;
         transition: 0.3s;
-        box-shadow: 0 0 10px #00ffe5;
+        box-shadow: 0 0 8px #00ffe5;
       }
 
       button:hover {
-        background: rgba(0, 255, 170, 0.4);
-        box-shadow: 0 0 20px #00ffe5, 0 0 40px #00ffe5;
+        background: rgba(0, 255, 170, 0.45);
+        box-shadow: 0 0 15px #00ffe5, 0 0 25px #00ffe5;
       }
 
       /* Floating particles */
       .particle {
         position: absolute;
-        width: 10px;
-        height: 10px;
+        width: 6px;
+        height: 6px;
         background: rgba(0, 255, 255, 0.8);
         border-radius: 50%;
-        animation: float 10s linear infinite;
+        animation: float 12s linear infinite;
       }
 
       @keyframes float {
@@ -83,27 +84,44 @@
           opacity: 1;
         }
       }
+
+      /* Mobile adjustments */
+      @media (max-width: 480px) {
+        .glass-card {
+          padding: 1.2rem;
+          border-radius: 14px;
+        }
+        h1 {
+          font-size: 1.4rem;
+        }
+        p {
+          font-size: 0.9rem;
+        }
+        button {
+          font-size: 0.85rem;
+          padding: 0.6rem 1.2rem;
+        }
+      }
     </style>
   </head>
   <body>
     <div class="glass-card">
       <h1>Hey Friend 👋</h1>
       <p>
-        I know things don’t always go smoothly, and sometimes words come out
-        wrong.<br /><br />
-        But I value this friendship more than a temporary misunderstanding.<br /><br />
-        Let’s move forward with clarity, respect, and a smile. 🌟
+        Misunderstandings may come and go,<br />
+        but real friendship stays strong.<br /><br />
+        Let’s keep moving forward with respect and smiles. 🌟
       </p>
       <button onclick="alert('Glad we are cool again 🙂')">Stay Friends</button>
     </div>
 
     <script>
       // Create floating neon particles
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 20; i++) {
         const particle = document.createElement("div");
         particle.className = "particle";
         particle.style.left = Math.random() * 100 + "vw";
-        particle.style.animationDuration = 5 + Math.random() * 5 + "s";
+        particle.style.animationDuration = 6 + Math.random() * 6 + "s";
         particle.style.opacity = Math.random();
         document.body.appendChild(particle);
       }
