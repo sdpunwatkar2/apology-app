@@ -1,149 +1,615 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Friendship Apology</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Collect Moments — Friendship</title>
     <style>
-      /* Reset */
+      :root {
+        --bg1: #071018;
+        --bg2: #0f1f2a;
+        --neon-a: #00ffd5;
+        --neon-b: #6b5bff;
+        --accent: #ff7ab6;
+        --glass: rgba(255, 255, 255, 0.06);
+      }
       * {
-        margin: 0;
-        padding: 0;
         box-sizing: border-box;
       }
-
+      html,
       body {
-        height: 100vh;
+        height: 100%;
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto,
+          "Helvetica Neue", Arial;
+      }
+      body {
         display: flex;
-        justify-content: center;
         align-items: center;
-        background: radial-gradient(circle at top, #0f2027, #1a2a33, #000);
-        font-family: "Poppins", sans-serif;
+        justify-content: center;
+        background: radial-gradient(
+            1200px 800px at 10% 10%,
+            rgba(107, 91, 255, 0.08),
+            transparent
+          ),
+          radial-gradient(
+            900px 600px at 90% 90%,
+            rgba(255, 122, 182, 0.06),
+            transparent
+          ),
+          linear-gradient(180deg, var(--bg1), var(--bg2));
+        padding: 16px;
+        -webkit-font-smoothing: antialiased;
+        color: #eafcff;
         overflow: hidden;
-        color: #fff;
       }
 
-      .card {
-        width: 90%;
-        max-width: 400px;
-        padding: 2rem;
-        border-radius: 16px;
-        background: rgba(17, 25, 40, 0.7);
-        backdrop-filter: blur(15px) saturate(180%);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 0 25px rgba(0, 255, 255, 0.6),
-          0 0 40px rgba(255, 0, 255, 0.4);
-        text-align: center;
+      /* App shell */
+      .stage {
+        width: 100%;
+        max-width: 460px;
+        min-height: 520px;
+        border-radius: 18px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6),
+          0 0 40px rgba(107, 91, 255, 0.06) inset;
+        padding: 18px;
         position: relative;
-        z-index: 2;
-        animation: fadeIn 1.2s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
 
-      .card h1 {
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
-        color: #00ffe5;
-        text-shadow: 0 0 10px #00ffe5, 0 0 20px #00ffe5;
+      /* Header */
+      .header {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 8px;
+      }
+      .logo {
+        width: 46px;
+        height: 46px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--neon-a), var(--neon-b));
+        box-shadow: 0 6px 20px rgba(0, 255, 213, 0.12),
+          0 0 30px rgba(107, 91, 255, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        color: #032020;
+        transform: rotate(-12deg);
+      }
+      .title {
+        flex: 1;
+      }
+      .title h2 {
+        font-size: 16px;
+        margin: 0 0 4px 0;
+        letter-spacing: 0.2px;
+      }
+      .title p {
+        margin: 0;
+        font-size: 12px;
+        color: rgba(234, 252, 255, 0.75);
       }
 
-      .card p {
-        font-size: 1rem;
-        line-height: 1.6;
-        margin-bottom: 1.5rem;
-        color: #cdefff;
+      /* Main area */
+      .main {
+        flex: 1;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        padding: 12px 6px 6px;
       }
 
-      .card button {
-        background: rgba(0, 255, 170, 0.2);
-        border: 1px solid rgba(0, 255, 170, 0.8);
-        padding: 0.7rem 1.8rem;
-        border-radius: 40px;
-        font-size: 1rem;
-        color: #00ffea;
-        cursor: pointer;
-        transition: 0.3s;
-        box-shadow: 0 0 10px #00ffe5;
+      /* center badge */
+      .badge-wrap {
+        width: 200px;
+        height: 200px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.03),
+          rgba(255, 255, 255, 0.01)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5),
+          0 0 30px rgba(107, 91, 255, 0.06);
+        position: relative;
+        z-index: 6;
+        backdrop-filter: blur(8px) saturate(140%);
+      }
+      .badge-inner {
+        width: 120px;
+        height: 120px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 255, 213, 0.06),
+          rgba(107, 91, 255, 0.06)
+        );
+        border: 2px solid rgba(0, 255, 213, 0.12);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6),
+          0 0 18px rgba(0, 255, 213, 0.06) inset;
+        color: var(--neon-a);
+        font-weight: 700;
+        text-align: center;
+        font-size: 14px;
+        transform: translateZ(0);
       }
 
-      .card button:hover {
-        background: rgba(0, 255, 170, 0.4);
-        box-shadow: 0 0 20px #00ffe5, 0 0 40px #00ffe5;
+      /* progress ring label */
+      .badge-label {
+        font-size: 12px;
+        color: rgba(234, 252, 255, 0.9);
+        margin-top: 10px;
+        text-align: center;
       }
 
-      /* Floating particles for background */
-      .particle {
-        position: absolute;
-        width: 8px;
-        height: 8px;
-        background: rgba(0, 255, 255, 0.9);
+      /* orbs (moments) */
+      .orb {
+        width: 24px;
+        height: 24px;
         border-radius: 50%;
-        animation: float 12s linear infinite;
-        z-index: 1;
+        position: absolute;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5),
+          0 0 10px rgba(255, 255, 255, 0.02) inset;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+        transition: transform 0.22s cubic-bezier(0.2, 0.9, 0.2, 1),
+          opacity 200ms;
+        z-index: 4;
+        will-change: transform, left, top;
       }
 
-      @keyframes float {
-        from {
-          transform: translateY(100vh) scale(0.4);
-          opacity: 0;
-        }
-        to {
-          transform: translateY(-10vh) scale(1.1);
-          opacity: 1;
-        }
+      .orb::after {
+        content: "";
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at 30% 30%,
+          rgba(255, 255, 255, 0.95),
+          transparent 30%
+        );
+        mix-blend-mode: overlay;
+        opacity: 0.12;
       }
 
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+      /* small instructions */
+      .hint {
+        font-size: 13px;
+        color: rgba(234, 252, 255, 0.8);
+        margin-top: 12px;
+        text-align: center;
       }
 
-      /* Mobile tweaks */
-      @media (max-width: 500px) {
-        .card {
-          padding: 1.5rem;
-          border-radius: 14px;
+      /* action row */
+      .actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .btn {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 8px 12px;
+        border-radius: 10px;
+        color: #dff;
+        font-size: 13px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+      }
+      .btn.small {
+        padding: 6px 10px;
+        font-size: 12px;
+      }
+
+      /* confetti canvas overlay */
+      #confetti {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9;
+      }
+
+      /* responsive tweaks */
+      @media (min-width: 520px) {
+        .badge-wrap {
+          width: 240px;
+          height: 240px;
         }
-        .card h1 {
-          font-size: 1.5rem;
-        }
-        .card p {
-          font-size: 0.95rem;
-        }
-        .card button {
-          font-size: 0.9rem;
-          padding: 0.6rem 1.5rem;
+        .badge-inner {
+          width: 140px;
+          height: 140px;
+          font-size: 16px;
         }
       }
     </style>
   </head>
   <body>
-    <div class="card">
-      <h1>Hey Friend 👋</h1>
-      <p>
-        Misunderstandings are part of being human, but they shouldn’t define
-        what we share.<br /><br />
-        I’d rather keep the bond we’ve built than let small moments drift us
-        apart. 🌟
-      </p>
-      <button onclick="alert('Glad we are cool again 🙂')">Stay Friends</button>
+    <div class="stage" id="app">
+      <div class="header">
+        <div class="logo">FM</div>
+        <div class="title">
+          <h2>Collect Moments</h2>
+          <p>Tap glowing moments — keep the friendship strong</p>
+        </div>
+        <button class="btn small" id="resetBtn" title="Reset progress">
+          Reset
+        </button>
+      </div>
+
+      <div class="main" id="main">
+        <!-- Orbs get injected here -->
+        <div class="badge-wrap" id="badgeWrap" aria-hidden="false">
+          <!-- SVG progress ring -->
+          <svg
+            viewBox="0 0 140 140"
+            style="
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              left: 0;
+              top: 0;
+              z-index: 5;
+            "
+          >
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="#00ffd5" />
+                <stop offset="1" stop-color="#6b5bff" />
+              </linearGradient>
+            </defs>
+            <circle
+              cx="70"
+              cy="70"
+              r="58"
+              stroke="rgba(255,255,255,0.04)"
+              stroke-width="6"
+              fill="none"
+            />
+            <circle
+              id="progressRing"
+              cx="70"
+              cy="70"
+              r="58"
+              stroke="url(#g1)"
+              stroke-width="6"
+              stroke-linecap="round"
+              fill="none"
+              stroke-dasharray="365"
+              stroke-dashoffset="365"
+              transform="rotate(-90 70 70)"
+            />
+          </svg>
+
+          <div class="badge-inner" id="badgeInner">FRIENDSHIP</div>
+        </div>
+      </div>
+
+      <div class="hint" id="hintText">
+        Collect <strong id="remaining">10</strong> moments
+      </div>
+      <div style="height: 12px"></div>
+      <div class="actions">
+        <button class="btn" id="skipBtn">Skip & Show Message</button>
+        <button class="btn" id="shareBtn">Share (copy link)</button>
+      </div>
+
+      <canvas id="confetti"></canvas>
     </div>
 
     <script>
-      // Generate floating particles
-      for (let i = 0; i < 25; i++) {
-        const particle = document.createElement("div");
-        particle.className = "particle";
-        particle.style.left = Math.random() * 100 + "vw";
-        particle.style.animationDuration = 6 + Math.random() * 6 + "s";
-        particle.style.opacity = Math.random();
-        document.body.appendChild(particle);
-      }
+      (() => {
+        const TOTAL = 10; // number of moments to collect
+        const app = document.getElementById("app");
+        const main = document.getElementById("main");
+        const remainingLabel = document.getElementById("remaining");
+        const ring = document.getElementById("progressRing");
+        const badgeInner = document.getElementById("badgeInner");
+        const resetBtn = document.getElementById("resetBtn");
+        const skipBtn = document.getElementById("skipBtn");
+        const shareBtn = document.getElementById("shareBtn");
+
+        let collected = 0;
+        let orbs = [];
+        const orbColors = [
+          "#00ffd5",
+          "#6b5bff",
+          "#ff7ab6",
+          "#6ef0a3",
+          "#ffd56b",
+        ];
+
+        // create initial orbs
+        function spawnOrbs() {
+          // clear existing
+          orbs.forEach((o) => o.remove());
+          orbs = [];
+          const rect = main.getBoundingClientRect();
+          for (let i = 0; i < TOTAL; i++) {
+            const o = document.createElement("div");
+            o.className = "orb";
+            const color = orbColors[i % orbColors.length];
+            o.style.background = `linear-gradient(135deg, ${color}, ${shade(
+              color,
+              -18
+            )})`;
+            // random horizontal position inside stage
+            const left = 6 + Math.random() * 88; // vw %
+            const top = 60 + Math.random() * 28; // start low
+            o.style.left = left + "vw";
+            o.style.top = top + "vh";
+            // subtle float animation (css-less: animate via JS)
+            o.dataset.floatSpeed = 7000 + Math.random() * 6000;
+            o.dataset.id = i;
+            main.appendChild(o);
+            orbs.push(o);
+
+            // tap handler
+            o.addEventListener("pointerdown", (ev) => collectOrb(o, ev));
+            // make it gently float (js loop)
+            animateFloat(o);
+          }
+          updateHint();
+        }
+
+        function animateFloat(elem) {
+          // move upwards and sideways slowly using requestAnimationFrame
+          let start = performance.now();
+          const duration = parseFloat(elem.dataset.floatSpeed);
+          const startTop = parseFloat(elem.style.top);
+          const dx = (Math.random() - 0.5) * 10; // small sideways drift in vw
+          function frame(t) {
+            const dt = (t - start) / duration;
+            const eased = Math.min(1, dt);
+            const newTop = startTop - eased * (30 + Math.random() * 20); // move up ~30-50vh
+            const leftBase = parseFloat(elem.style.left);
+            elem.style.top = newTop + "vh";
+            elem.style.left = leftBase + Math.sin(dt * 3 + start) * 0.4 + "vw";
+            if (eased < 1 && !elem.classList.contains("collected"))
+              requestAnimationFrame(frame);
+            else {
+              // if finished floating without being collected, gently reset (loop)
+              if (!elem.classList.contains("collected")) {
+                elem.style.top = 60 + Math.random() * 28 + "vh";
+                elem.dataset.floatSpeed = 7000 + Math.random() * 5000;
+                start = performance.now();
+                requestAnimationFrame(frame);
+              }
+            }
+          }
+          requestAnimationFrame(frame);
+        }
+
+        function collectOrb(orb, ev) {
+          if (orb.classList.contains("collected")) return;
+          orb.classList.add("collected");
+          // create a clone to animate to center
+          const clone = orb.cloneNode(true);
+          document.body.appendChild(clone);
+          const orbRect = orb.getBoundingClientRect();
+          const badgeRect = document
+            .getElementById("badgeWrap")
+            .getBoundingClientRect();
+
+          // set absolute position
+          clone.style.position = "fixed";
+          clone.style.left = orbRect.left + "px";
+          clone.style.top = orbRect.top + "px";
+          clone.style.transform = "translateZ(0) scale(1.0)";
+          clone.style.transition =
+            "transform 520ms cubic-bezier(.2,.9,.2,1), left 520ms linear, top 520ms linear, opacity 300ms";
+          clone.style.zIndex = 50;
+
+          // hide original orb a bit
+          orb.style.opacity = "0.1";
+          orb.style.pointerEvents = "none";
+
+          // compute target center (badge center)
+          const targetX =
+            badgeRect.left + badgeRect.width / 2 - orbRect.width / 2;
+          const targetY =
+            badgeRect.top + badgeRect.height / 2 - orbRect.height / 2;
+
+          // trigger move
+          requestAnimationFrame(() => {
+            clone.style.left = targetX + "px";
+            clone.style.top = targetY + "px";
+            clone.style.transform = "translateZ(0) scale(0.45)";
+            clone.style.opacity = "0.9";
+          });
+
+          // when transition ends, remove clone and increment
+          clone.addEventListener(
+            "transitionend",
+            () => {
+              clone.remove();
+              orb.remove(); // remove original from DOM
+              collected++;
+              updateProgress();
+            },
+            { once: true }
+          );
+        }
+
+        // update ring progress
+        function updateProgress() {
+          const remaining = Math.max(0, TOTAL - collected);
+          remainingLabel.textContent = remaining;
+          // animate stroke dashoffset
+          const circumference = 2 * Math.PI * 58; // r = 58 in svg
+          const progress = collected / TOTAL;
+          const offset = Math.round(circumference * (1 - progress));
+          ring.style.transition = "stroke-dashoffset 420ms ease";
+          ring.style.strokeDashoffset = offset;
+          // small badge pulse
+          badgeInner.style.transform = "scale(1.06)";
+          setTimeout(() => (badgeInner.style.transform = "scale(1)"), 280);
+
+          if (collected >= TOTAL) {
+            onComplete();
+          }
+        }
+
+        // finished
+        function onComplete() {
+          badgeInner.textContent = "FRIENDS ✅";
+          document.getElementById("hintText").textContent =
+            "Bond preserved — friends stay.";
+          runConfetti();
+        }
+
+        // confetti (lightweight)
+        function runConfetti() {
+          const canvas = document.getElementById("confetti");
+          const ctx = canvas.getContext("2d");
+          const DPR = window.devicePixelRatio || 1;
+          canvas.width = app.clientWidth * DPR;
+          canvas.height = app.clientHeight * DPR;
+          canvas.style.width = app.clientWidth + "px";
+          canvas.style.height = app.clientHeight + "px";
+          ctx.scale(DPR, DPR);
+
+          const pieces = [];
+          const colors = [
+            "#00ffd5",
+            "#6b5bff",
+            "#ff7ab6",
+            "#ffd56b",
+            "#6ef0a3",
+          ];
+          for (let i = 0; i < 30; i++) {
+            pieces.push({
+              x: app.clientWidth / 2 + (Math.random() - 0.5) * 200,
+              y: app.clientHeight / 2 + (Math.random() - 0.5) * 200,
+              vx: (Math.random() - 0.5) * 6,
+              vy: -6 - Math.random() * 6,
+              size: 6 + Math.random() * 8,
+              color: colors[Math.floor(Math.random() * colors.length)],
+              rot: Math.random() * 360,
+              velRot: (Math.random() - 0.5) * 10,
+            });
+          }
+          let life = 0;
+          function tick() {
+            life++;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            pieces.forEach((p) => {
+              p.vy += 0.25; // gravity
+              p.x += p.vx;
+              p.y += p.vy;
+              p.rot += p.velRot;
+              ctx.save();
+              ctx.translate(p.x, p.y);
+              ctx.rotate((p.rot * Math.PI) / 180);
+              ctx.fillStyle = p.color;
+              ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size / 2);
+              ctx.restore();
+            });
+            if (life < 110) requestAnimationFrame(tick);
+            else ctx.clearRect(0, 0, canvas.width, canvas.height);
+          }
+          tick();
+        }
+
+        // helpers
+        function shade(hex, percent) {
+          // simple shade function
+          const f = hex.slice(1);
+          const n = parseInt(f, 16);
+          const r = Math.max(0, Math.min(255, (n >> 16) + percent));
+          const g = Math.max(0, Math.min(255, ((n >> 8) & 0x00ff) + percent));
+          const b = Math.max(0, Math.min(255, (n & 0x0000ff) + percent));
+          return (
+            "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)
+          );
+        }
+
+        // reset
+        resetBtn.addEventListener("click", () => {
+          collected = 0;
+          badgeInner.textContent = "FRIENDSHIP";
+          document.getElementById("hintText").textContent = "";
+          setTimeout(
+            () =>
+              (document.getElementById(
+                "hintText"
+              ).textContent = `Collect ${TOTAL} moments`),
+            180
+          );
+          ring.style.strokeDashoffset = 2 * Math.PI * 58;
+          spawnOrbs();
+          // clear confetti canvas
+          const c = document.getElementById("confetti");
+          c.getContext("2d").clearRect(0, 0, c.width, c.height);
+        });
+
+        skipBtn.addEventListener("click", () => {
+          collected = TOTAL;
+          updateProgress();
+        });
+
+        shareBtn.addEventListener("click", () => {
+          // copy a friendly text to clipboard (no external link needed)
+          const txt =
+            "I just sent you a little friendship thing — no pressure. Stay friends? 🌟";
+          navigator.clipboard
+            ?.writeText(txt)
+            .then(() => {
+              shareBtn.textContent = "Copied!";
+              setTimeout(
+                () => (shareBtn.textContent = "Share (copy link)"),
+                1200
+              );
+            })
+            .catch(() => {
+              alert("Copy failed — you can manually share the page URL.");
+            });
+        });
+
+        // initialize
+        (function init() {
+          remainingLabel.textContent = TOTAL;
+          // set initial ring dashoffset
+          const circ = 2 * Math.PI * 58;
+          ring.style.strokeDasharray = Math.round(circ);
+          ring.style.strokeDashoffset = Math.round(circ);
+          document.getElementById(
+            "hintText"
+          ).textContent = `Collect ${TOTAL} moments`;
+          spawnOrbs();
+          // mobile friendly: prevent overscroll
+          document.body.addEventListener(
+            "touchmove",
+            (e) => {
+              if (e.target.classList.contains("orb")) e.preventDefault();
+            },
+            { passive: false }
+          );
+        })();
+      })();
     </script>
   </body>
 </html>
